@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X889MYFV7L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-X889MYFV7L');
+
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            
+            // 1. Extract Protocol Data
+            const destRaw = params.get('dest'); 
+            const assetId = params.get('utm_id') || 'unverified_asset';
+            const agent   = params.get('utm_source') || 'direct';
+            const buyer   = params.get('utm_content') || 'not_set';
+            const medium  = params.get('utm_medium') || 'email'; // Captures your 'email' silo
+
+            // 2. The Dynamic Path Builder for the Dossier
+            const dossierPath = `https://truthengineai-blip.github.io/mejia-onestreet.one/${assetId}/welcome/welcome.html`;
+            
+            // 3. Logic: Is it a short-key or a full URL?
+            let finalUrl;
+            let methodLabel;
+
+            if (destRaw === 'dossier' || !destRaw) {
+                finalUrl = dossierPath;
+                methodLabel = 'Dossier Entry';
+            } else if (destRaw.startsWith('http') || destRaw.startsWith('mailto')) {
+                // This "uncloaks" the %2F and %3A automatically
+                finalUrl = destRaw; 
+                methodLabel = destRaw.includes('calendly') ? 'Consult Intent' : 
+                              destRaw.includes('google') ? 'Review Intent' : 'License Intent';
+            } else {
+                // Fallback for short keys if you still use them
+                const shortKeys = {
+                    'review': 'https://search.google.com/local/writereview?placeid=ChIJ1-Pra3HJt4kRsuAVx8ge7qY',
+                    'consult': 'https://calendly.com/mejia-pas/30min'
+                };
+                finalUrl = shortKeys[destRaw] || dossierPath;
+                methodLabel = destRaw.toUpperCase();
+            }
+
+            // 4. Log to GA4 Silo
+            gtag('event', 'dossier_dissection', {
+                'method': methodLabel,
+                'asset_id': assetId,
+                'source': agent,
+                'content': buyer,
+                'medium': medium, // Securely logs 'email' before the whip
+                'event_callback': function() {
+                    // This ensures GA4 finishes before the redirect
+                    window.location.href = finalUrl;
+                }
+            });
+
+            // Fallback timeout in case GA4 is blocked/slow
+            setTimeout(() => { window.location.href = finalUrl; }, 800);
+        };
+    </script>
+    <style>
+        body { background: #000; color: #C5A059; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: serif; letter-spacing: 0.3em; font-size: 10px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    Authenticating Secure Access...
+</body>
+</html>

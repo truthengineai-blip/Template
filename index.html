@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X889MYFV7L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X889MYFV7L');
+
+  // Track the Mailto Clicks specifically
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+      link.addEventListener('click', function() {
+        gtag('event', 'contact_click', {
+          'event_category': 'engagement',
+          'event_label': this.href,
+          'transport_type': 'beacon'
+        });
+      });
+    });
+  });
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truth Engine™ // Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #1d1d1f;
+            --sub: #86868b;
+            --accent: #000000;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+        }
+        .font-grotesk { font-family: 'Space Grotesk', sans-serif; }
+        
+        .studio-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #f2f2f7;
+        }
+        .studio-card:hover {
+            border-color: #d2d2d7;
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+        }
+        .btn-black {
+            background: var(--accent);
+            color: white;
+            transition: all 0.2s ease;
+        }
+        .btn-black:hover { 
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="antialiased h-screen flex flex-col">
+
+    <header class="p-8 flex justify-between items-center">
+        <div class="font-grotesk font-bold text-xl tracking-tighter">TRUTH ENGINE<span class="text-[10px] align-top ml-0.5">™</span></div>
+        <div class="text-[9px] font-bold tracking-[0.3em] uppercase text-zinc-400">Studio // Verification Portal</div>
+    </header>
+
+    <main class="flex-grow flex flex-col justify-center px-6">
+        <div class="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12">
+            
+            <div class="studio-card p-12 flex flex-col justify-between h-[450px]">
+                <div>
+                    <h2 class="text-xs font-bold tracking-[0.2em] text-zinc-400 uppercase mb-8">Homeowners</h2>
+                    <h3 class="text-4xl md:text-5xl font-semibold tracking-tight mb-6">Consult The Advisor.</h3>
+                    <p class="text-zinc-500 text-xl leading-relaxed font-light">
+                        Strategize your next move.
+                    </p>
+                </div>
+                <a href="mailto:advisor@truthengine.io?subject=Consultation Request: Homeowner Strategy" class="btn-black py-5 text-center rounded-sm text-xs font-bold uppercase tracking-[0.2em]">Request Session</a>
+            </div>
+
+            <div class="studio-card p-12 flex flex-col justify-between h-[450px]">
+                <div>
+                    <h2 class="text-xs font-bold tracking-[0.2em] text-zinc-400 uppercase mb-8">Professionals</h2>
+                    <h3 class="text-4xl md:text-5xl font-semibold tracking-tight mb-6">License Truth Engine™</h3>
+                    <p class="text-zinc-500 text-xl leading-relaxed font-light">
+                        Integrate high-fidelity intelligence.
+                    </p>
+                </div>
+                <a href="mailto:licensing@truthengine.io?subject=License Application: Professional Access" class="btn-black py-5 text-center rounded-sm text-xs font-bold uppercase tracking-[0.2em]">Apply for Access</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="p-12 text-center">
+        <p class="text-[10px] text-zinc-400 font-medium tracking-[0.4em] uppercase">
+            Local Expertise // Verified Intelligence
+        </p>
+    </footer>
+
+</body>
+</html>
